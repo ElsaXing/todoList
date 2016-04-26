@@ -1,42 +1,25 @@
 "use strict";
 
-// function addLoadEvent(func) {
-// 	var oldonload = window.onload;
-// 	if (typeof window.onload != 'function') {
-// 		window.onload = func;
-// 	} else	{
-// 		window.onload = function () {
-// 			oldonload();
-// 			func();
-// 		};
-// 	}
-// }
-
-
-
-
-
 // 检查是否有任务储存
 
-	if (!localStorage.getItem('allTasks')) {
+if (!localStorage.getItem('allTasks')) {
 	// show example
-		newTask('read','2016-05-01','book','123');
-		var allTasks = [
+	newTask('read','2016-05-01','book','123');
+	var allTasks = [
 			{'title':'read',
 			 'deadline': '2016-05-01',
 			 'description': 'book',
 			 'UUID': '123'
 			}
-		];
+	];
 } else {
 	// show tasks
-		// get data
-		// 提前给task创建一个名字！！
-			var allTasks = JSON.parse(localStorage.getItem('allTasks'));
-			for (var i=0; i < allTasks.length; i++) {
-				 var  task = allTasks[i];
-				 newTask(task.title,task.deadline,task.description,task.UUID);
-			}
+    // get data
+	var allTasks = JSON.parse(localStorage.getItem('allTasks'));
+	for (var i=0; i < allTasks.length; i++) {
+		var  task = allTasks[i];
+		newTask(task.title,task.deadline,task.description,task.UUID);
+	}
 		
 }
 
@@ -61,7 +44,6 @@ function newTask(taskTitle,deadLine,descriptionText,UUID) {
 	task.appendChild(deadline);
 	task.appendChild(description);
 	task.setAttribute('UUID',UUID);
-	task.setAttribute('Id',UUID);
 // delete task
 	var deleteTask = document.createElement('button');
 	deleteTask.addEventListener('click',function(){	
@@ -108,7 +90,7 @@ function saveTask () {
 	localStorage.setItem('allTasks', JSON.stringify(allTasks));
 
 	newTask(taskTitle,deadLine,descriptionText,UUID);
-	}
+}
 
 
 function model_newTask (taskTitle,deadLine,descriptionText,UUID) {
@@ -123,3 +105,8 @@ function model_newTask (taskTitle,deadLine,descriptionText,UUID) {
 }
 
 
+window.onunload = function () {
+	if (allTasks.length === 0 ) {
+		localStorage.removeItem('allTasks');
+	}
+}
