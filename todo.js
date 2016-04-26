@@ -62,15 +62,17 @@ function newTask(taskTitle,deadLine,descriptionText,UUID) {
 	task.appendChild(description);
 	task.setAttribute('UUID',UUID);
 	task.setAttribute('Id',UUID);
-
+// delete task
 	var deleteTask = document.createElement('button');
-	deleteTask.addEventListener('click',deleteTask(){	
-		var targetTask = document.getElementById(UUID);
-		var pareTask = document.getElementById('taskList');
-		pareTask.removeChild(targetTask);
-		console.log (UUID);}
-		);
-	// task.addEventListener('mouseover',target);
+	deleteTask.addEventListener('click',function(){	
+		taskList.removeChild(task);
+		for (var i=0; i<allTasks.length; i++) {
+			if (allTasks[i].UUID == UUID) {
+				allTasks.splice(i,1);
+				localStorage.setItem('allTasks', JSON.stringify(allTasks));
+			}
+		} 
+	} );
 	deleteTask.innerHTML = 'delete';
 	task.appendChild(deleteTask);
 }
@@ -121,12 +123,3 @@ function model_newTask (taskTitle,deadLine,descriptionText,UUID) {
 }
 
 
-// // 删除任务
-// function deleteTask (UUID) {
-
-
-// }
-
-// function target () {
-
-// }
