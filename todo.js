@@ -82,12 +82,12 @@ function generateUUID(){
 // save task
 function saveTask () {
 	alert ("dwed");
-	// var taskTitle= document.getElementById('taskTitle').value;
-	// var deadLine= document.getElementById('deadLine').value;
-	// var descriptionText= document.getElementById('descriptionText').value;
-	// // var task =[taskTitle,deadLine,descriptionText];
-	// // allTasks.push(task);
-	// // localStorage.setItem('allTasks',JSON.stringify(allTasks));
+	var taskTitle= document.getElementById('taskTitle').value;
+	var deadLine= document.getElementById('deadLine').value;
+	var descriptionText= document.getElementById('descriptionText').value;
+	var task =[taskTitle,deadLine,descriptionText];
+	allTasks.push(task);
+	localStorage.setItem('allTasks',JSON.stringify(allTasks));
 
-	// newTask(taskTitle,deadLine,descriptionText);
+	newTask(taskTitle,deadLine,descriptionText);
 	}
