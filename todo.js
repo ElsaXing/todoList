@@ -20,21 +20,24 @@
 
 	if (!localStorage.getItem('allTasks')) {
 	// show example
-		newTask('read','2016-05-01','book');
-		var allTasks = {
-			'example': ['read','2016-05-01','book']
-		};
+		newTask('read','2016-05-01','book','123');
+		var allTasks = [
+			{'title':'read',
+			 'deadline': '2016-05-01',
+			 'description': 'book',
+			 'UUID': '123'
+			}
+		];
 } else {
 	// show tasks
 		// get data
 		// 提前给task创建一个名字！！
-		function getData() {
-			var allTasks = localStorage.getItem(allTasks);
+			var allTasks = JSON.parse(localStorage.getItem('allTasks'));
 			for (var i=0; i < allTasks.length; i++) {
 				 var  task = allTasks[i];
-				 newTask(task.taskTitle,task.deadLine,task.descriptionText);
+				 newTask(task.title,task.deadline,task.description,task.UUID);
 			}
-		}
+		
 }
 
 
@@ -43,13 +46,12 @@
 
 
 // create new task
-function newTask(taskTitle,deadLine,descriptionText) {
+function newTask(taskTitle,deadLine,descriptionText,UUID) {
 	var task = document.createElement('li');
 	var taskList = document.getElementById('taskList');
 	taskList.appendChild(task);
 	var task_title = document.createTextNode(taskTitle);
 	task.appendChild(task_title);
-// 不知道create啥
 	var deadline = document.createElement('p');
 	var deadline_date = document.createTextNode(deadLine);
 	var description = document.createElement('p');
@@ -58,7 +60,19 @@ function newTask(taskTitle,deadLine,descriptionText) {
 	deadline.appendChild(deadline_date);
 	task.appendChild(deadline);
 	task.appendChild(description);
-	
+	task.setAttribute('UUID',UUID);
+	task.setAttribute('Id',UUID);
+
+	var deleteTask = document.createElement('button');
+	deleteTask.addEventListener('click',deleteTask(){	
+		var targetTask = document.getElementById(UUID);
+		var pareTask = document.getElementById('taskList');
+		pareTask.removeChild(targetTask);
+		console.log (UUID);}
+		);
+	// task.addEventListener('mouseover',target);
+	deleteTask.innerHTML = 'delete';
+	task.appendChild(deleteTask);
 }
 
 
@@ -81,13 +95,38 @@ function generateUUID(){
 
 // save task
 function saveTask () {
-	alert ("dwed");
 	var taskTitle= document.getElementById('taskTitle').value;
 	var deadLine= document.getElementById('deadLine').value;
 	var descriptionText= document.getElementById('descriptionText').value;
-	var task =[taskTitle,deadLine,descriptionText];
-	allTasks.push(task);
-	localStorage.setItem('allTasks',JSON.stringify(allTasks));
+	var UUID = generateUUID();
+	var task = model_newTask(taskTitle,deadLine,descriptionText,UUID);
 
-	newTask(taskTitle,deadLine,descriptionText);
+	allTasks.push(task);
+
+	localStorage.setItem('allTasks', JSON.stringify(allTasks));
+
+	newTask(taskTitle,deadLine,descriptionText,UUID);
 	}
+
+
+function model_newTask (taskTitle,deadLine,descriptionText,UUID) {
+	var task = {
+		'title': taskTitle,
+		'deadline': deadLine,
+		'description': descriptionText,
+		'UUID': UUID
+	};
+
+	return task;
+}
+
+
+// // 删除任务
+// function deleteTask (UUID) {
+
+
+// }
+
+// function target () {
+
+// }
