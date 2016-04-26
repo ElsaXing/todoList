@@ -1,29 +1,29 @@
-function addLoadEvent(func) {
-	var oldonload = window.onload;
-	if (typeof window.onload != 'function') {
-		window.onload = func;
-	} else	{
-		window.onload = function () {
-			oldonload();
-			func();
-		}
-	}
-}
+"use strict";
+
+// function addLoadEvent(func) {
+// 	var oldonload = window.onload;
+// 	if (typeof window.onload != 'function') {
+// 		window.onload = func;
+// 	} else	{
+// 		window.onload = function () {
+// 			oldonload();
+// 			func();
+// 		};
+// 	}
+// }
 
 
-var allTasks = new Array;
+
 
 
 // 检查是否有任务储存
 
 	if (!localStorage.getItem('allTasks')) {
 	// show example
-		newTask('read','5/1','book');
-	// var task = document.createElement('li');
-	// var taskList = document.getElementById('taskList');
-	// taskList.appendChild(task);
-	// var task_title = document.createTextNode('read');
-	// task.appendChild(task_title);
+		newTask('read','2016-05-01','book');
+		var allTasks = {
+			'example': ['read','2016-05-01','book']
+		};
 } else {
 	// show tasks
 		// get data
@@ -31,8 +31,8 @@ var allTasks = new Array;
 		function getData() {
 			var allTasks = localStorage.getItem(allTasks);
 			for (var i=0; i < allTasks.length; i++) {
-				 var  FUCK = allTasks[i];
-				 newTask(FUCK.taskTitle,FUCK.deadLine,FUCK.descriptionText);
+				 var  task = allTasks[i];
+				 newTask(task.taskTitle,task.deadLine,task.descriptionText);
 			}
 		}
 }
@@ -54,8 +54,8 @@ function newTask(taskTitle,deadLine,descriptionText) {
 	var deadline_date = document.createTextNode(deadLine);
 	var description = document.createElement('p');
 	var description_text = document.createTextNode(descriptionText);
-	description.appendChild(description_text)
-	deadline.appendChild(deadline_date)
+	description.appendChild(description_text);
+	deadline.appendChild(deadline_date);
 	task.appendChild(deadline);
 	task.appendChild(description);
 	
@@ -74,24 +74,20 @@ function generateUUID(){
         return (c=='x' ? r : (r&0x7|0x8)).toString(16);
     });
     return uuid;
-};
+}
 
 
 
 
 // save task
 function saveTask () {
-	alert ('asd');
-	var taskTitle= document.getElementById('taskTitle');
-	var deadLine= document.getElementById('deadLine');
-	var descriptionText= document.getElementById('descriptionText');
-	var task = new Object (),
-		TT = taskTitle.value,
-		DL = deadLine.value,
-		DT = descriptionText.value,
-		name = generateUUID();
-	allTasks.push(task);
-	localStorage.setItem('allTasks',JSON.stringify(allTasks));
+	alert ("dwed");
+	// var taskTitle= document.getElementById('taskTitle').value;
+	// var deadLine= document.getElementById('deadLine').value;
+	// var descriptionText= document.getElementById('descriptionText').value;
+	// // var task =[taskTitle,deadLine,descriptionText];
+	// // allTasks.push(task);
+	// // localStorage.setItem('allTasks',JSON.stringify(allTasks));
 
-	newTask(taskTitle.value,deadLine.value,descriptionText.value);
-}
+	// newTask(taskTitle,deadLine,descriptionText);
+	}
