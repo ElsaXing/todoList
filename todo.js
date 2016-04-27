@@ -1,5 +1,6 @@
 "use strict";
 
+
 // 检查是否有任务储存
 
 if (!localStorage.getItem('allTasks')) {
@@ -16,11 +17,21 @@ if (!localStorage.getItem('allTasks')) {
 	// show tasks
     // get data
 	var allTasks = JSON.parse(localStorage.getItem('allTasks'));
+	allTasks.sort(
+		function(task1, task2) {
+			if(Date.parse(task1.deadline) > Date.parse(task2.deadline)){
+				return true;
+			} else {
+				return false;
+			}
+		}
+	)
+
+
 	for (var i=0; i < allTasks.length; i++) {
-		var  task = allTasks[i];
+		var task = allTasks[i];
 		newTask(task.title,task.deadline,task.description,task.UUID);
 	}
-		
 }
 
 
@@ -44,19 +55,32 @@ function newTask(taskTitle,deadLine,descriptionText,UUID) {
 	task.appendChild(deadline);
 	task.appendChild(description);
 	task.setAttribute('UUID',UUID);
+	task.className = 'unfinished';
 // delete task
 	var deleteTask = document.createElement('button');
-	deleteTask.addEventListener('click',function(){	
+	deleteTask.addEventListener('click',function(){
 		taskList.removeChild(task);
 		for (var i=0; i<allTasks.length; i++) {
 			if (allTasks[i].UUID == UUID) {
 				allTasks.splice(i,1);
 				localStorage.setItem('allTasks', JSON.stringify(allTasks));
 			}
-		} 
+		}
 	} );
 	deleteTask.innerHTML = 'delete';
 	task.appendChild(deleteTask);
+// 是否完成
+	var finished = document.createElement('input');
+	finished.type = 'checkbox';
+	finished.addEventListener('change',function(){
+		if (finished.checked) {
+			task.className = 'finished';
+		} else {
+			task.className = 'unfinished';
+		}
+
+	})
+	task.appendChild(finished);
 }
 
 
@@ -83,22 +107,21 @@ function saveTask () {
 	var deadLine= document.getElementById('deadLine').value;
 	var descriptionText= document.getElementById('descriptionText').value;
 	var UUID = generateUUID();
-	var task = model_newTask(taskTitle,deadLine,descriptionText,UUID);
-
+	var createdTime = new Date();
+	var task = model_newTask(taskTitle,deadLine,descriptionText,UUID,createdTime);
 	allTasks.push(task);
-
 	localStorage.setItem('allTasks', JSON.stringify(allTasks));
-
 	newTask(taskTitle,deadLine,descriptionText,UUID);
 }
 
 
-function model_newTask (taskTitle,deadLine,descriptionText,UUID) {
+function model_newTask (taskTitle,deadLine,descriptionText,UUID,createdTime) {
 	var task = {
 		'title': taskTitle,
 		'deadline': deadLine,
 		'description': descriptionText,
-		'UUID': UUID
+		'UUID': UUID,
+		'createdTime':createdTime
 	};
 
 	return task;
