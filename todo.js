@@ -1,8 +1,6 @@
 "use strict";
 
 if (localStorage.getItem('allTasks')) {
-	// 隐藏范例
-	document.getElementById('example').style.display = 'none';
 	// 读取数据
 	var allTasks = JSON.parse(localStorage.getItem('allTasks'));
 	// 排序
@@ -19,10 +17,12 @@ if (localStorage.getItem('allTasks')) {
 	for (var i=0; i < allTasks.length; i++) {
 		var task = allTasks[i];
 		View_newTask(task.title,task.deadline,task.description,task.UUID);
+
 	}
 
 }else{
 	var allTasks = [];
+	View_newTask('Try it!','','Creat you first Task!','123');
 }
 
 
@@ -47,16 +47,32 @@ function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 	task.appendChild(description);
 	task.setAttribute('UUID',UUID);
 	task.className = 'unfinished';
-	for (var i = 0; i<taskList.length; ++i){
-		var indexTask = taskList[i];
+
+// 插入正确位置
+	var arr_taskList = getchildnode(taskList);
+	if (arr_taskList.length === 0 ) {
+		taskList.appendChild(task);
+	}
+	else {
+		var i=0;
+		var indexTask = arr_taskList[i];
 		var indexDeadline = indexTask.getElementsByClassName('deadline');
-		console.log (indexDeadline);
-		if(Date.parse(indexDeadline.value) <= Date.parse(deadLine)){
-			taskList.insertAfter(task,indexTask);
+		while (i<arr_taskList.length) {
+			if(Date.parse(deadLine) <= Date.parse(indexDeadline.value)){
+			taskList.insertBefore(task,indexTask);
 			break;
+			} 
+			else {
+				if (arr_taskList.length == i+1) {
+					taskList.appendChild(task);
+					break;
+				}
+				else {
+					i+=1;
+				}
+			}
 		}
 	}
-
 
 	// 基础功能
 	// delete task
@@ -89,6 +105,24 @@ function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 	});
 }
 
+
+// 获取view的子元素
+function getchildnode (parent) {
+	var childlist = parent.children;
+	var childlistarr = [];
+	var i=0;
+	while (i<childlist.length) {
+		if (childlist[i].nodeType == 1) {
+			childlistarr.push(childlist[i]);
+			i += 1;
+		}
+		else{i+=1;}
+
+	}
+	return childlistarr;
+}
+
+
 // 从界面获取数据并显示
 function get_viewData () {
 	var taskTitle= document.getElementById('taskTitle').value;
@@ -100,16 +134,25 @@ function get_viewData () {
 	// 插入
 	if(allTasks.length === 0){
 		allTasks.push(task);
-	}else{
-		for (var i = 0; i<allTasks.length; ++i){
-			var indexTask = allTasks[i];
-			if(Date.parse(task.deadline) >= Date.parse(indexTask.deadline)){
-				allTasks.splice(i, 0, task);
+	}
+	else{
+		var i=0;
+		var indexTask = allTasks[i];
+		while (i<allTasks.length) {
+			if(Date.parse(task.deadline) <= Date.parse(indexTask.deadline)){
+				allTasks.splice(i-1, 0, task);
 				break;
-			} else {
-				allTasks.splice(task, 0, i);
+			} 
+			else {
+				if (allTasks.length == i+1) {
+					allTasks.splice(i,0,task);
+					break;
+				}
+				else {
+					i+=1;
+				}
 			}
-		};
+		}
 	}
 	View_newTask(task.title,task.deadline,task.description,task.UUID);
 
