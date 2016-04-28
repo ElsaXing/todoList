@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="todo.css">
 	<title>ToDo</title>
 </head>
 <body>
-	<h1>Todo</h1>
-	<div>
+	<div class="top"><h1>Todo</h1></div>	
+	<div class="create-task">
 		<h3>New</h3>
 		<form >
 			Title:<input id="taskTitle" type="text" ></input>	
 			Deadline:<input id="deadLine" type="date"></input>	<br>
 			Description:<input id="descriptionText" type="text"></input>	   <br>
-			<input type="button" id="btn_save" value="save" onclick="saveTask( )"></input>
+			<input type="button" id="btn_save" value="save" onclick="get_viewData ()"></input>
 		</form>
 	</div>
-	<div>
+	<div class="show-task">
 		<h3>Tasks</h3>
 		<ul id="taskList">
+		<li id="example">
+			<p>read</p>
+			<p>2016-05-01</p>
+			<p>book</p>
+		</li>
+		</ul>
+		<ul  id='finished_taskList'>		
 		</ul>
 	</div>
 

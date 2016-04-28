@@ -1,22 +1,11 @@
 "use strict";
 
-
-// 检查是否有任务储存
-
-if (!localStorage.getItem('allTasks')) {
-	// show example
-	newTask('read','2016-05-01','book','123');
-	var allTasks = [
-			{'title':'read',
-			 'deadline': '2016-05-01',
-			 'description': 'book',
-			 'UUID': '123'
-			}
-	];
-} else {
-	// show tasks
-    // get data
+if (localStorage.getItem('allTasks')) {
+	// 隐藏范例
+	document.getElementById('example').style.display = 'none';
+	// 读取数据
 	var allTasks = JSON.parse(localStorage.getItem('allTasks'));
+	// 排序
 	allTasks.sort(
 		function(task1, task2) {
 			if(Date.parse(task1.deadline) > Date.parse(task2.deadline)){
@@ -25,65 +14,120 @@ if (!localStorage.getItem('allTasks')) {
 				return false;
 			}
 		}
-	)
-
-
+	);
+	// 创建任务
 	for (var i=0; i < allTasks.length; i++) {
 		var task = allTasks[i];
-		newTask(task.title,task.deadline,task.description,task.UUID);
+		View_newTask(task.title,task.deadline,task.description,task.UUID);
 	}
+
+}else{
+	var allTasks = [];
 }
 
 
+function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 
-
-
-
-// create new task
-function newTask(taskTitle,deadLine,descriptionText,UUID) {
-	var task = document.createElement('li');
 	var taskList = document.getElementById('taskList');
-	taskList.appendChild(task);
-	var task_title = document.createTextNode(taskTitle);
-	task.appendChild(task_title);
+	var finished_taskList = document.getElementById('finished_taskList');
+
+	var task = document.createElement('li');
+	// 基础信息
+	var title = document.createTextNode(taskTitle);
 	var deadline = document.createElement('p');
-	var deadline_date = document.createTextNode(deadLine);
+	    var deadline_date = document.createTextNode(deadLine);
+	    deadline.className = 'deadline';
+    	deadline.appendChild(deadline_date);	
 	var description = document.createElement('p');
-	var description_text = document.createTextNode(descriptionText);
-	description.appendChild(description_text);
-	deadline.appendChild(deadline_date);
+		var description_text = document.createTextNode(descriptionText);
+		description.appendChild(description_text);
+ 	
+ 	task.appendChild(title);
 	task.appendChild(deadline);
 	task.appendChild(description);
 	task.setAttribute('UUID',UUID);
 	task.className = 'unfinished';
-// delete task
+	for (var i = 0; i<taskList.length; ++i){
+		var indexTask = taskList[i];
+		var indexDeadline = indexTask.getElementsByClassName('deadline');
+		console.log (indexDeadline);
+		if(Date.parse(indexDeadline.value) <= Date.parse(deadLine)){
+			taskList.insertAfter(task,indexTask);
+			break;
+		}
+	}
+
+
+	// 基础功能
+	// delete task
 	var deleteTask = document.createElement('button');
+	task.appendChild(deleteTask);
 	deleteTask.addEventListener('click',function(){
 		taskList.removeChild(task);
 		for (var i=0; i<allTasks.length; i++) {
 			if (allTasks[i].UUID == UUID) {
 				allTasks.splice(i,1);
-				localStorage.setItem('allTasks', JSON.stringify(allTasks));
 			}
 		}
 	} );
 	deleteTask.innerHTML = 'delete';
-	task.appendChild(deleteTask);
-// 是否完成
+
+
+	// 是否完成
 	var finished = document.createElement('input');
+	task.appendChild(finished);
 	finished.type = 'checkbox';
 	finished.addEventListener('change',function(){
 		if (finished.checked) {
 			task.className = 'finished';
+			finished_taskList.appendChild(task);
 		} else {
 			task.className = 'unfinished';
+			taskList.appendChild(task);
 		}
 
-	})
-	task.appendChild(finished);
+	});
+}
+
+// 从界面获取数据并显示
+function get_viewData () {
+	var taskTitle= document.getElementById('taskTitle').value;
+	var deadLine= document.getElementById('deadLine').value;
+	var descriptionText= document.getElementById('descriptionText').value;
+	var UUID = generateUUID();
+	var createdTime = new Date();
+	var task = model_newTask(taskTitle,deadLine,descriptionText,UUID,createdTime);
+	// 插入
+	if(allTasks.length === 0){
+		allTasks.push(task);
+	}else{
+		for (var i = 0; i<allTasks.length; ++i){
+			var indexTask = allTasks[i];
+			if(Date.parse(task.deadline) >= Date.parse(indexTask.deadline)){
+				allTasks.splice(i, 0, task);
+				break;
+			} else {
+				allTasks.splice(task, 0, i);
+			}
+		};
+	}
+	View_newTask(task.title,task.deadline,task.description,task.UUID);
+
 }
 
 
+// 将数据加入到allTask
+function model_newTask (taskTitle,deadLine,descriptionText,UUID,createdTime) {
+	var task = {
+		'title': taskTitle,
+		'deadline': deadLine,
+		'description': descriptionText,
+		'UUID': UUID,
+		'createdTime':createdTime
+	};
+
+	return task;
+}
 
 
 
@@ -101,35 +145,11 @@ function generateUUID(){
 
 
 
-// save task
-function saveTask () {
-	var taskTitle= document.getElementById('taskTitle').value;
-	var deadLine= document.getElementById('deadLine').value;
-	var descriptionText= document.getElementById('descriptionText').value;
-	var UUID = generateUUID();
-	var createdTime = new Date();
-	var task = model_newTask(taskTitle,deadLine,descriptionText,UUID,createdTime);
-	allTasks.push(task);
-	localStorage.setItem('allTasks', JSON.stringify(allTasks));
-	newTask(taskTitle,deadLine,descriptionText,UUID);
-}
-
-
-function model_newTask (taskTitle,deadLine,descriptionText,UUID,createdTime) {
-	var task = {
-		'title': taskTitle,
-		'deadline': deadLine,
-		'description': descriptionText,
-		'UUID': UUID,
-		'createdTime':createdTime
-	};
-
-	return task;
-}
-
-
 window.onunload = function () {
 	if (allTasks.length === 0 ) {
 		localStorage.removeItem('allTasks');
+	} else {
+		localStorage.setItem('allTasks', JSON.stringify(allTasks));
+
 	}
-}
+};
