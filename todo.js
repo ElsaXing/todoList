@@ -17,20 +17,16 @@ if (localStorage.getItem('allTasks')) {
 	var finished_taskList = document.getElementById('finished_taskList');
 	for (var i=0; i < allTasks.length; i++) {
 		var task = allTasks[i];
-<<<<<<< HEAD
 		var seperatetask = View_newTask(task.title,task.deadline,task.description,task.UUID);
 		if (task.finished) {
 			finished_taskList.appendChild(seperatetask);
 			var showcheckbox = seperatetask.getElementsByTagName('input')[0];
 			showcheckbox.checked = true;
-		}
-=======
-		View_newTask(task.title,task.deadline,task.description,task.UUID);
->>>>>>> origin/master
-		
+		}	
 	}
 
-}else{
+}
+else{
 	var allTasks = [];
 	View_newTask('Try it!','','Creat you first Task!','123');
 }
@@ -79,10 +75,7 @@ function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 	var finishedstate = document.createElement('input');
 	task.appendChild(finishedstate);
 	finishedstate.type = 'checkbox';
-<<<<<<< HEAD
 	finishedstate.checked = false;
-=======
->>>>>>> origin/master
 	finishedstate.addEventListener('change',function(){
 		var finished;
 		if (finishedstate.checked) {
