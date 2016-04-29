@@ -17,7 +17,7 @@ if (localStorage.getItem('allTasks')) {
 	for (var i=0; i < allTasks.length; i++) {
 		var task = allTasks[i];
 		View_newTask(task.title,task.deadline,task.description,task.UUID);
-
+		
 	}
 
 }else{
@@ -47,32 +47,7 @@ function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 	task.appendChild(description);
 	task.setAttribute('UUID',UUID);
 	task.className = 'unfinished';
-
-// 插入正确位置
-	var arr_taskList = getchildnode(taskList);
-	if (arr_taskList.length === 0 ) {
-		taskList.appendChild(task);
-	}
-	else {
-		var i=0;
-		var indexTask = arr_taskList[i];
-		var indexDeadline = indexTask.getElementsByClassName('deadline');
-		while (i<arr_taskList.length) {
-			if(Date.parse(deadLine) <= Date.parse(indexDeadline.value)){
-			taskList.insertBefore(task,indexTask);
-			break;
-			} 
-			else {
-				if (arr_taskList.length == i+1) {
-					taskList.appendChild(task);
-					break;
-				}
-				else {
-					i+=1;
-				}
-			}
-		}
-	}
+	taskList.appendChild(task);
 
 	// 基础功能
 	// delete task
@@ -90,16 +65,21 @@ function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 
 
 	// 是否完成
-	var finished = document.createElement('input');
-	task.appendChild(finished);
-	finished.type = 'checkbox';
-	finished.addEventListener('change',function(){
-		if (finished.checked) {
+	var finishedstate = document.createElement('input');
+	task.appendChild(finishedstate);
+	finishedstate.type = 'checkbox';
+	finishedstate.addEventListener('change',function(){
+		var finished;
+		if (finishedstate.checked) {
 			task.className = 'finished';
 			finished_taskList.appendChild(task);
+			finished= true;
+			update_model(task,UUID);
 		} else {
 			task.className = 'unfinished';
 			taskList.appendChild(task);
+			finished= false;
+			update_model(task,UUID);
 		}
 
 	});
@@ -130,7 +110,8 @@ function get_viewData () {
 	var descriptionText= document.getElementById('descriptionText').value;
 	var UUID = generateUUID();
 	var createdTime = new Date();
-	var task = model_newTask(taskTitle,deadLine,descriptionText,UUID,createdTime);
+	var finished = false;
+	var task = model_newTask(taskTitle,deadLine,descriptionText,UUID,createdTime,finished);
 	// 插入
 	if(allTasks.length === 0){
 		allTasks.push(task);
@@ -155,21 +136,35 @@ function get_viewData () {
 		}
 	}
 	View_newTask(task.title,task.deadline,task.description,task.UUID);
+		document.location.reload(true);
 
 }
 
 
 // 将数据加入到allTask
-function model_newTask (taskTitle,deadLine,descriptionText,UUID,createdTime) {
+function model_newTask (taskTitle,deadLine,descriptionText,UUID,createdTime,finished) {
 	var task = {
 		'title': taskTitle,
 		'deadline': deadLine,
 		'description': descriptionText,
 		'UUID': UUID,
-		'createdTime':createdTime
+		'createdTime':createdTime,
+		'finished':finished
 	};
 
 	return task;
+}
+
+
+// 更新model数据
+function update_model(targettask,UUID) {
+	//get model task and update:
+	for (var i=0; i<allTasks.length; ++i){
+		if(allTasks[i].UUID == UUID){
+			allTasks[i].finished = !allTasks[i].finished;
+			break;
+		}
+	}
 }
 
 
