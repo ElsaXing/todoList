@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="todo.css">
+    <link rel="stylesheet" type="text/css" href="css/todo.css">
 	<title>ToDo</title>
 </head>
 <body>
-	<div class="top"><h1>Todo</h1></div>	
-	<div class="create-task">
-		<h3>New</h3>
-		<form >
-			Title:<input id="taskTitle" type="text" ></input>	
-			Deadline:<input id="deadLine" type="date"></input>	<br>
-			Description:<input id="descriptionText" type="text"></input>	   <br>
-			<input type="button" id="btn_save" value="save" onclick="get_viewData ()"></input>
-		</form>
-	</div>
-	<div class="show-task">
-		<h3>Tasks</h3>
-		<ul id="taskList">
-		</ul>
-		<ul  id='finished_taskList'>		
-		</ul>
-	</div>
+	<div class="top"> <div class="app-name"><h1>Todo</h1></div></div>
+	<div class="task-area">	
+		<div class="create-task">
+			<h3>New</h3>
+			<form class="new-task">
+				Title:<input id="taskTitle" type="text" ></input>
+				Due:<img src="pic/calendar.png" id="calendar" onclick="show_calendar()">	
+					<input id="deadLine" type="date"></input>	<br>
+				Description:<textarea id="descriptionText"></textarea>	   <br>
+				<input type="button" id="btn_save" value="save" onclick="get_viewData ()"></input>
+			</form>
+			<br>
+		</div>
+		<div class="show-task">
+			<h3>Tasks</h3>
+			<ul class="taskList">
+			</ul>
+			<ul  class='finished_taskList'>		
+			</ul>
+		</div>
+	</div>	
+
+    
+	<script type="text/javascript" src="js/todo.js"></script>
 
 
-	<script type="text/javascript" src="todo.js"></script>
 </body>
 </html>

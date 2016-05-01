@@ -1,5 +1,21 @@
 "use strict";
 
+function addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function () {
+			oldonload();
+			func();
+		}
+	}
+}
+
+
+
+
+
 if (localStorage.getItem('allTasks')) {
 	// 读取数据
 	var allTasks = JSON.parse(localStorage.getItem('allTasks'));
@@ -14,7 +30,7 @@ if (localStorage.getItem('allTasks')) {
 		}
 	);
 	// 创建任务
-	var finished_taskList = document.getElementById('finished_taskList');
+	var finished_taskList = document.getElementsByClassName('finished_taskList')[0];
 	for (var i=0; i < allTasks.length; i++) {
 		var task = allTasks[i];
 		var seperatetask = View_newTask(task.title,task.deadline,task.description,task.UUID);
@@ -34,12 +50,15 @@ else{
 
 function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 
-	var taskList = document.getElementById('taskList');
-	var finished_taskList = document.getElementById('finished_taskList');
+	var taskList = document.getElementsByClassName('taskList')[0];
+	var finished_taskList = document.getElementsByClassName('finished_taskList')[0];
 
 	var task = document.createElement('li');
 	// 基础信息
-	var title = document.createTextNode(taskTitle);
+	var title = document.createElement('p');
+		var title_text = document.createTextNode(taskTitle);
+		title.appendChild(title_text);
+		title_text.className = 'title';
 	var deadline = document.createElement('p');
 	    var deadline_date = document.createTextNode(deadLine);
 	    deadline.className = 'deadline';
@@ -52,7 +71,6 @@ function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 	task.appendChild(deadline);
 	task.appendChild(description);
 	task.setAttribute('UUID',UUID);
-	task.className = 'unfinished';
 	taskList.appendChild(task);
 
 	// 基础功能
@@ -191,7 +209,7 @@ function generateUUID(){
 
 
 
-
+// 检查数据存储
 window.onunload = function () {
 	if (allTasks.length === 0 ) {
 		localStorage.removeItem('allTasks');
@@ -200,3 +218,35 @@ window.onunload = function () {
 
 	}
 };
+
+
+
+function show_calendar() {
+	var pic_calendar = document.getElementById('calendar')
+	var input_calendar = document.getElementById('deadLine');
+	pic_calendar.style.display = 'none';
+	input_calendar.style.display = 'inline';
+}
+
+
+function set_today_date() {
+	var today = new Date;
+	var year = today.getFullYear();
+	var month = today.getMonth() + 1;
+	var day = today.getDay() + 1;
+
+	if (month < 10) {
+		month = '0' + month;
+	}
+	if (day < 10) (
+		day = '0' + day);
+
+	var calendar = document.getElementById('deadLine');
+
+
+	var today_date = year + '-' + month + '-' + day;
+
+	calendar.setAttribute('value', today_date);
+
+}
+addLoadEvent(set_today_date);

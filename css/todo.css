@@ -1,0 +1,66 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+.app-name,
+.show-task,
+.create-task 
+{
+	width:30%;
+	margin: 0 auto;
+}
+
+.app-name {
+	height: 50px;
+	padding-top: 20px;
+}
+.new-task {
+	margin-left: 20px;
+	line-height: 25px;
+}
+
+#taskList,
+#finished_taskList {
+	list-style: none;
+	margin-left: 20px;
+}
+
+#calendar {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	margin-top: 1px;
+	margin-left: 5px;
+}
+
+#deadLine {
+	display: none;
+}
+
+#descriptionText {
+	position: absolute;
+}
+
+#btn_save {
+	margin-left: 50%; 
+}
+
+#finished_taskList {
+	color: grey;
+}
+
+.show-task {
+	position:relative;
+	margin:0 auto 15px;
+	display:block;
+	width:450px; height:82px;
+	text-decoration:none;
+	background-color:#fafafa;
+	color:#131313;
+	border-radius:10px;
+	box-shadow: 0 4px #e7e7e7,
+    			0 6px 1px #d0d0d2;
+
+}
