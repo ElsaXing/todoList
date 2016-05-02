@@ -13,6 +13,18 @@ function addLoadEvent(func) {
 }
 
 
+function localStorage_check () {
+
+	if(!window.localStorage){
+
+	alert("Sorry, your browser doesn't support this page. Please try another one.");
+
+	}
+
+}
+addLoadEvent(localStorage_check);
+
+
 if (localStorage.getItem('allTasks')) {
 	// 读取数据
 	var allTasks = JSON.parse(localStorage.getItem('allTasks'));
@@ -40,8 +52,32 @@ if (localStorage.getItem('allTasks')) {
 }
 else{
 	var allTasks = [];
-	View_newTask('Try it!','','Creat you first Task!','123');
+	View_newTask('Try it!','','Create you first Task!','123');
 }
+
+
+// deadline日期预设
+function set_today_date() {
+	var today = new Date;
+	var year = today.getFullYear();
+	var month = today.getMonth() + 1;
+	var day = today.getDay() + 1;
+
+	if (month < 10) {
+		month = '0' + month;
+	}
+	if (day < 10) (
+		day = '0' + day);
+
+	var calendar = document.getElementById('deadLine');
+
+
+	var today_date = year + '-' + month + '-' + day;
+
+	calendar.setAttribute('value', today_date);
+
+}
+addLoadEvent(set_today_date);
 
 
 
@@ -233,25 +269,3 @@ window.onunload = function () {
 };
 
 
-// deadline日期预设
-function set_today_date() {
-	var today = new Date;
-	var year = today.getFullYear();
-	var month = today.getMonth() + 1;
-	var day = today.getDay() + 1;
-
-	if (month < 10) {
-		month = '0' + month;
-	}
-	if (day < 10) (
-		day = '0' + day);
-
-	var calendar = document.getElementById('deadLine');
-
-
-	var today_date = year + '-' + month + '-' + day;
-
-	calendar.setAttribute('value', today_date);
-
-}
-addLoadEvent(set_today_date);
