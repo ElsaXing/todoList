@@ -8,12 +8,9 @@ function addLoadEvent(func) {
 		window.onload = function () {
 			oldonload();
 			func();
-		}
+		};
 	}
 }
-
-
-
 
 
 if (localStorage.getItem('allTasks')) {
@@ -40,7 +37,6 @@ if (localStorage.getItem('allTasks')) {
 			showcheckbox.checked = true;
 		}	
 	}
-
 }
 else{
 	var allTasks = [];
@@ -48,35 +44,51 @@ else{
 }
 
 
-function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 
+
+function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 	var taskList = document.getElementsByClassName('taskList')[0];
 	var finished_taskList = document.getElementsByClassName('finished_taskList')[0];
 
 	var task = document.createElement('li');
+		task.className = 'list-group-item';
+		task.setAttribute('UUID',UUID);
 	// 基础信息
+
+	finish_button(task,UUID,taskList);	
+	var container = document.createElement('div');
+	container.className = 'container mine';
+	task.appendChild(container);
+
+
 	var title = document.createElement('p');
 		var title_text = document.createTextNode(taskTitle);
 		title.appendChild(title_text);
-		title_text.className = 'title';
+		title.setAttribute('name', 'title');
 	var deadline = document.createElement('p');
 	    var deadline_date = document.createTextNode(deadLine);
-	    deadline.className = 'deadline';
+	    deadline.setAttribute('name','deadline');
     	deadline.appendChild(deadline_date);	
 	var description = document.createElement('p');
 		var description_text = document.createTextNode(descriptionText);
 		description.appendChild(description_text);
  	
- 	task.appendChild(title);
-	task.appendChild(deadline);
-	task.appendChild(description);
-	task.setAttribute('UUID',UUID);
+ 	container.appendChild(title);
+	container.appendChild(deadline);
+	container.appendChild(description);
+
 	taskList.appendChild(task);
 
-	// 基础功能
+	delete_button(container,UUID,allTasks,task);
+	return task;
+}
+
+
+function delete_button (container,UUID,allTasks,task) {
 	// delete task
 	var deleteTask = document.createElement('button');
-	task.appendChild(deleteTask);
+	deleteTask.className = 'btn btn-default';
+	container.appendChild(deleteTask);
 	deleteTask.addEventListener('click',function(){
 		var pare = task.parentNode;
 		pare.removeChild(task);
@@ -87,30 +99,31 @@ function View_newTask (taskTitle,deadLine,descriptionText,UUID) {
 		}
 	} );
 	deleteTask.innerHTML = 'delete';
+}
 
-
-	// 是否完成
+function finish_button (task,UUID,taskList) {
 	var finishedstate = document.createElement('input');
 	task.appendChild(finishedstate);
 	finishedstate.type = 'checkbox';
 	finishedstate.checked = false;
+	finishedstate.className = 'checkbox';
 	finishedstate.addEventListener('change',function(){
 		var finished;
 		if (finishedstate.checked) {
-			task.className = 'finished';
+			task.setAttribute('name','finished');
 			finished_taskList.appendChild(task);
 			finished= true;
 			update_model(task,UUID);
 		} else {
-			task.className = 'unfinished';
+			task.setAttribute('name','unfinished');
 			taskList.appendChild(task);
 			finished= false;
 			update_model(task,UUID);
 		}
 
 	});
-	return task;
 }
+
 
 
 // 获取view的子元素
@@ -220,15 +233,7 @@ window.onunload = function () {
 };
 
 
-
-function show_calendar() {
-	var pic_calendar = document.getElementById('calendar')
-	var input_calendar = document.getElementById('deadLine');
-	pic_calendar.style.display = 'none';
-	input_calendar.style.display = 'inline';
-}
-
-
+// deadline日期预设
 function set_today_date() {
 	var today = new Date;
 	var year = today.getFullYear();

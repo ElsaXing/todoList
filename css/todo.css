@@ -1,66 +1,33 @@
-* {
-	margin: 0;
-	padding: 0;
+
+body {
+	background-color: #D5DED9;
 }
 
-
-.app-name,
-.show-task,
-.create-task 
-{
-	width:30%;
-	margin: 0 auto;
-}
 
 .app-name {
-	height: 50px;
-	padding-top: 20px;
-}
-.new-task {
-	margin-left: 20px;
-	line-height: 25px;
+	padding-left: 40px;
+	padding-top: 15px;
 }
 
-#taskList,
-#finished_taskList {
-	list-style: none;
-	margin-left: 20px;
+.top {
+	background-color: #99B2B7;
+	height: 80px;
 }
 
-#calendar {
-	position: absolute;
-	width: 20px;
-	height: 20px;
-	margin-top: 1px;
-	margin-left: 5px;
+h1 {
+	margin:0 0;
 }
 
-#deadLine {
-	display: none;
+.mine {
+	padding-left: 30px;
+	margin-top: -20px;
 }
 
-#descriptionText {
-	position: absolute;
+.finished_taskList li {
+	color:#b9b9b9;
+	background-color:#efefef; 
 }
 
-#btn_save {
-	margin-left: 50%; 
-}
-
-#finished_taskList {
-	color: grey;
-}
-
-.show-task {
-	position:relative;
-	margin:0 auto 15px;
-	display:block;
-	width:450px; height:82px;
-	text-decoration:none;
-	background-color:#fafafa;
-	color:#131313;
-	border-radius:10px;
-	box-shadow: 0 4px #e7e7e7,
-    			0 6px 1px #d0d0d2;
-
+.finished_taskList button {
+	background-color:#efefef; 	
 }
