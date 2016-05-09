@@ -52,7 +52,6 @@ if (localStorage.getItem('allTasks')) {
 }
 else{
 	var allTasks = [];
-	View_newTask('Try it!','','Create you first Task!','123');
 }
 
 
@@ -133,7 +132,7 @@ function delete_button (container,UUID,allTasks,task) {
 				allTasks.splice(i,1);
 			}
 		}
-	} );
+	},false );
 	deleteTask.innerHTML = 'delete';
 }
 
