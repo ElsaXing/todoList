@@ -1,8 +1,8 @@
 # todoList
-基于LocalStorage的To Do List App
+基于LocalStorage的ToDo List App
 
-## 部署
-Clone项目 => 打开ToDo.html
+## Link：
+http://elsaxing.github.io/todoList/
 
 
 
