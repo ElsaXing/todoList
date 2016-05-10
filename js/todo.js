@@ -60,7 +60,7 @@ function set_today_date() {
 	var today = new Date;
 	var year = today.getFullYear();
 	var month = today.getMonth() + 1;
-	var day = today.getDay() + 1;
+	var day = today.getDate() + 1;
 
 	if (month < 10) {
 		month = '0' + month;
