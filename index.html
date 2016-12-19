@@ -1,39 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/todo.css">
-	<title>ToDo</title>
+    <title>ToDo</title>
 </head>
 <body>
-	<div class="top container-fluid"> <div class="app-name row"> <div class=""><h1>Todo</h1></div></div></div>
-	<div class="task-area container">	
-		<div class="create-task row">
-			<h3>New</h3>
-			<form class="new-task form-group">
-				Title:<input id="taskTitle" type="text" class="form-control"></input><br>
-				Due:<input id="deadLine" type="date"></input>	<br><br>
-				Description:<textarea id="descriptionText" class="form-control" rows="3"></textarea>	   <br>
-				<input type="button" id="btn_save" class='btn btn-default' value="save" onclick="get_viewData ()"></input>
-			</form>
-			<br>
-		</div>
-		<div class="show-task row">
-			<h3>Tasks</h3>
-			<ul class="taskList list-group">
-			</ul>
-			<ul class='finished_taskList list-group'>		
-			</ul>
-		</div>
-	</div>	
-
-    <!-- <script src="js/jquery.min.js"></script> -->
-	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script> 
-	<script type="text/javascript" src="js/todo.js"></script>
-	<!-- <script src="js/bootstrap.min.js"></script> -->
-
-
+<div class="wrap">
+    <div class="top">
+        <h1>Todo</h1>
+    </div>
+    <div class="content">
+        <div class="create-task">
+            <div class="icon-add"></div>
+            <div class="icon-calender hide"
+                 id="icon-calender"
+                 onclick="setDeadline()"></div>
+            <div class="div-date hide">
+                <input id="input-year" class="input-date">
+                <span>-</span>
+                <input id="input-month" class="input-date">
+                <span>-</span>
+                <input id="input-day" class="input-date">
+            </div>
+            <div class="icon-addMore"
+                 id="icon-switch"
+                 onclick="switchInfo()"></div>
+            <input class="input-name"
+                   id="input-name"
+                   type="text"
+                   placeholder="Add your new task"
+                   onkeypress="getTaskData(event)">
+            <textarea class="input-desc hide"
+                      id="input-desc"
+                      placeholder="Add your description"
+                      onkeypress="getTaskData(event)"></textarea>
+        </div>
+        <div class="show-task" >
+            <div class="taskList" id="taskList">
+            </div>
+            <hr>
+            <div class='finished_taskList' id="finished_taskList">
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script type="text/javascript" src="js/todo.js"></script>-->
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

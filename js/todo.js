@@ -22,6 +22,7 @@ function localStorage_check () {
 	}
 
 }
+
 addLoadEvent(localStorage_check);
 
 
@@ -266,5 +267,3 @@ window.onunload = function () {
 
 	}
 };
-
-

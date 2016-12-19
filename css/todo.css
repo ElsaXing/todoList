@@ -1,33 +1,220 @@
-
-body {
-	background-color: #D5DED9;
+/*main structure*/
+.wrap {
+    width: 680px;
+    margin: 0 auto;
+    font-family: Helvetica;
+    font-size: 24px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    text-align: left;
+    color: #000000;
 }
 
-
-.app-name {
-	padding-left: 40px;
-	padding-top: 15px;
+.content {
+    padding-top: 70px;
 }
 
-.top {
-	background-color: #99B2B7;
-	height: 80px;
+.create-task {
+    width: 680px;
+    position: relative;
 }
 
+.show-task {
+    width: 680px;
+    position: relative;
+}
+
+.taskList {
+    margin: 70px 0 0;
+}
+
+.finished_taskList {
+    color: #9b9b9b;
+    margin: 50px 0 50px 0;
+}
+
+/*font style*/
 h1 {
-	margin:0 0;
+    text-align: center;
+    font-size: 36px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
 }
 
-.mine {
-	padding-left: 30px;
-	margin-top: -20px;
+.div-date {
+    font-family: Helvetica;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    color: #9f9f9f;
+    outline: none;
+    position: absolute;
+    right: 32px;
 }
 
-.finished_taskList li {
-	color:#b9b9b9;
-	background-color:#efefef; 
+/*input style*/
+.input-name {
+    width: 608px;
+    height: 30px;
+    font-size: 24px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid 1px #979797;
+    padding-left: 40px;
+    padding-right: 32px;
+    padding-bottom: 2px;
 }
 
-.finished_taskList button {
-	background-color:#efefef; 	
+.input-name:focus,
+.input-desc:focus {
+    outline: none;
+}
+
+.input-desc {
+    margin-top: 30px;
+    width: 656px;
+    height: 160px;
+    border-radius: 3px;
+    border: solid 1px #979797;
+    font-family: Helvetica;
+    font-size: 24px;
+    padding: 12px;
+}
+
+.input-date {
+    height: 31px;
+    font-family: Helvetica;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    color: #9f9f9f;
+    border: none;
+    outline: none;
+
+}
+
+#input-year {
+    width: 40px;
+}
+
+#input-month {
+    width: 20px;
+}
+
+#input-day {
+    width: 20px;
+}
+
+.hide {
+    display: none;
+}
+
+/*task style*/
+.task {
+    margin-bottom: 20px;
+    user-select: none;
+}
+
+.task-info {
+    margin-left: 40px;
+    padding: 4px 0 4px 1px;
+}
+
+.task-info:hover {
+    background-color: #efefef;
+    border-radius: 3px;
+}
+
+.task-info .date {
+    padding-left: 13px;
+    font-size: 18px;
+    color: #9b9b9b;
+}
+
+.task-info .desc {
+    font-size: 18px;
+    line-height: 1.33;
+}
+
+.active .task-info {
+    margin-left: 40px;
+    padding: 4px 0 4px 1px;
+    border-radius: 3px;
+    background-color: #efefef;
+}
+
+/*icon style*/
+.icon-add {
+    background: url("../src/add.svg") no-repeat center;
+    width: 32px;
+    height: 32px;
+    background-size: 20px 20px;
+    position: absolute;
+
+}
+
+.icon-addMore {
+    background: url("../src/addMore.svg") no-repeat center;
+    width: 32px;
+    height: 32px;
+    background-size: 20px 20px;
+    position: absolute;
+    right: 0;
+}
+
+.icon-checkbox {
+    background: url("../src/checkBox.svg") no-repeat center;
+    width: 32px;
+    height: 36px;
+    background-size: 20px 20px;
+    position: absolute;
+}
+
+.icon-checkbox-checked {
+    background: url("../src/checkBoxChecked.svg") no-repeat center;
+    width: 32px;
+    height: 36px;
+    background-size: 20px 20px;
+    position: absolute;
+}
+
+.icon-calender {
+    background: url("../src/calender.svg") no-repeat center;
+    width: 32px;
+    height: 32px;
+    background-size: 20px 20px;
+    position: absolute;
+    right: 32px;
+}
+
+.icon-showLess {
+    background: url("../src/showLess.svg") no-repeat center;
+    width: 32px;
+    height: 32px;
+    background-size: 20px 20px;
+    position: absolute;
+    right: 0;
+}
+
+.icon-moreInfo {
+    background: url("../src/moreInfo.svg") no-repeat center;
+    width: 32px;
+    height: 32px;
+    background-size: 20px 20px;
+    position: absolute;
+    right: 0;
+}
+
+.icon-lessInfo {
+    background: url("../src/lessInfo.svg") no-repeat center;
+    width: 32px;
+    height: 32px;
+    background-size: 20px 20px;
+    position: absolute;
+    right: 0;
 }
