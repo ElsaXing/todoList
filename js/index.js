@@ -5,8 +5,8 @@
 //set up
 function init() {
     localStorage_check();
-    dateCheck();
-    lineCheck();
+    calenderCheck();
+    existTaskCheck();
 }
 
 init();
@@ -206,127 +206,5 @@ function changeState(state, task) {
         case 'editing':
 
             break;
-    }
-}
-
-//tool function
-function createDOMElem(type, parent) {
-    var DOM = document.createElement(type);
-    parent.appendChild(DOM);
-    return DOM;
-}
-
-function getDOM(type, name) {
-    switch (type) {
-        case 'class':
-            return document.getElementsByClassName(name);
-            break;
-        case 'id':
-            return document.getElementById(name);
-            break;
-        case 'tag':
-            return document.getElementsByTagName(name);
-            break;
-        case 'name':
-            return document.getElementsByName(name);
-            break;
-        default:
-            return;
-    }
-}
-
-function emptyValueCheck(str) {
-    return !(str.replace(/^\s+|\s+$/g, '').length == 0);
-}
-
-function getToday(type) {
-    var today = new Date;
-    var year = today.getFullYear();
-    var month = today.getMonth() + 1;
-    var day = today.getDate() + 1;
-
-    if (month < 10) {
-        month = '0' + month;
-    }
-    if (day < 10) {
-        day = '0' + day;
-    }
-
-    switch (type) {
-        case 'year':
-            return year;
-            break;
-        case 'month':
-            return month;
-            break;
-        case 'day':
-            return day;
-            break;
-    }
-}
-
-function dateCheck() {
-    var el_year = getDOM('id', 'input-year');
-    var el_month = getDOM('id', 'input-month');
-    var el_day = getDOM('id', 'input-day');
-
-    el_year.addEventListener('change',function() {
-        if (Number(el_year.value)) {
-            el_year.value = getToday('year');
-        } else {
-            el_year.value = dataCheck(Number(el_year.value), 0, 5000);
-        }
-    });
-    el_month.addEventListener('change',function() {
-        if (Number(el_month.value)) {
-            el_month.value = getToday('month');
-        }
-        else {
-            el_month.value = dataCheck(Number(el_month.value), 1, 12);
-        }
-    });
-    el_day.addEventListener('change',function() {
-        if (Number(el_day.value)) {
-            el_day.value = getToday('day');
-        } else {
-            el_day.value = dataCheck(Number(el_day.value), 1, 31);
-        }
-    });
-
-    function dataCheck(value, min, max) {
-        switch (value) {
-            case (value < min):
-                return min;
-                break;
-            case (value > max):
-                return max;
-                break;
-            case (min <= value < 10):
-                return '0' + value;
-                break;
-            default:
-                return value;
-        }
-    }
-}
-
-function generateUUID(){
-    var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = (d + Math.random()*16)%16 | 0;
-        d = Math.floor(d/16);
-        return (c=='x' ? r : (r&0x7|0x8)).toString(16);
-    });
-    return uuid;
-}
-
-function lineCheck() {
-    var hr = getDOM('tag', 'hr');
-    var finished = getDOM('id', 'finished_taskList');
-    var unfinished = getDOM('id', 'taskList');
-    if (finished.firstElementChild && unfinished.firstElementChild) {
-        hr[0].className = '';
-    } else {
-        hr[0].className = 'hide';
     }
 }
