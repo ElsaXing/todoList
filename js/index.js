@@ -21,9 +21,9 @@ function init() {
     }
 
     calenderCheck();
-    if (existTaskCheck()) {
-        switchInfo();
-    }
+
+    switchInfo();
+
 }
 
 init();
@@ -36,7 +36,7 @@ function localStorage_check() {
 
 }
 
-window.addEventListener('keydown', function() {
+window.addEventListener('keydown', function () {
     if (event.keyCode != 46 && event.keyCode != 8) {
         return;
     }
