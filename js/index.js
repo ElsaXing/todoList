@@ -36,7 +36,22 @@ function localStorage_check() {
 
 }
 
+window.addEventListener('keydown', function() {
+    if (event.keyCode != 46 && event.keyCode != 8) {
+        return;
+    }
 
+    var active = getDOM('class', 'active');
+
+    if (active.length <= 0) {
+        return;
+    }
+
+    update_model(active[0].getAttribute('created'), 'delete');
+    active[0].parentElement.removeChild(active[0]);
+    existTaskCheck();
+
+});
 
 function getTaskData(event) {
     var el_title = getDOM('id', 'input-name');
@@ -145,7 +160,7 @@ function update_model(task, type) {
                 _tasks[i].finished = !_tasks[i].finished;
                 break;
             } else if (type == 'delete') {
-                _tasks.pop(_tasks[i]);
+                _tasks.splice(i, 1);
                 break;
             }
         }
