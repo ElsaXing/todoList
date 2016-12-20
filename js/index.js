@@ -3,8 +3,23 @@
  */
 "use strict";
 //set up
+var _tasks;
+
 function init() {
     localStorage_check();
+
+
+    if (localStorage.getItem('tasks')) {
+        _tasks = JSON.parse(localStorage.getItem('tasks'));
+
+        for (var i = 0; i < _tasks.length; i++) {
+            addTaskToDOM(_tasks[i], _tasks[i].finished);
+        }
+    }
+    else {
+        _tasks = [];
+    }
+
     calenderCheck();
     if (existTaskCheck()) {
         switchInfo();
@@ -21,7 +36,6 @@ function localStorage_check() {
 
 }
 
-var _tasks = [];
 
 
 function getTaskData(event) {
@@ -42,6 +56,7 @@ function getTaskData(event) {
 
             var task = tempTask(title, date, desc);
             addTaskToDOM(task, false);
+            _tasks.push(task);
 
             el_title.value = '';
             el_desc.value = '';
@@ -122,6 +137,27 @@ function setDeadline() {
     date[2].value = getToday('day');
 }
 
-window.onunload = function () {
-    
+function update_model(task, type) {
+
+    for (var i = 0; i < _tasks.length; ++i) {
+        if (_tasks[i].created == task) {
+            if (type == 'edit') {
+                _tasks[i].finished = !_tasks[i].finished;
+                break;
+            } else if (type == 'delete') {
+                _tasks.pop(_tasks[i]);
+                break;
+            }
+        }
+    }
 }
+
+
+window.onunload = function () {
+    if (_tasks.length === 0) {
+        localStorage.removeItem('tasks');
+    } else {
+        localStorage.setItem('tasks', JSON.stringify(_tasks));
+
+    }
+};

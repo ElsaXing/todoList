@@ -9,7 +9,6 @@ function addTaskToDOM(task, finished) {
         tasks = el_finishedTasks;
     }
 
-
     el_task.className = 'task';
     el_task.setAttribute('created', task.created);
     el_task.setAttribute('state', 'brief');
@@ -22,7 +21,6 @@ function addTaskToDOM(task, finished) {
     var el_date = createDOMElem('span',el_taskInfo);
 
 
-    el_iconCheckbox.className = 'icon-checkbox';
     el_taskInfo.className = 'task-info';
     el_title.className = 'name';
     el_date.className = 'date';
@@ -68,24 +66,33 @@ function taskBody(parent) {
 }
 
 function fakeCheckbox (parent, finished) {
-    var el_taskList = getDOM('id', 'taskList');
-    var el_finished_taskList = getDOM('id', 'finished_taskList');
 
     var finishedstate = createDOMElem('div', parent);
+
     parent.setAttribute('checked', finished);
 
+    if (finished) {
+        finishedstate.className = 'icon-checkbox-checked';
+    } else {
+        finishedstate.className = 'icon-checkbox';
+    }
+
     finishedstate.addEventListener('click',function(){
-        if (parent.checked) {
+        var el_taskList = getDOM('id', 'taskList');
+        var el_finished_taskList = getDOM('id', 'finished_taskList');
+
+        if (parent.getAttribute('checked') == 'true') {
             el_finished_taskList.removeChild(parent);
             sortTask(parent, el_taskList);
-            parent.checked = false;
+            parent.setAttribute('checked',false);
             finishedstate.className = 'icon-checkbox';
-
+            update_model(parent.getAttribute('created'), 'edit');
             existTaskCheck();
         } else {
             el_taskList.removeChild(parent);
             sortTask(parent, el_finished_taskList);
-            parent.checked = true;
+            parent.setAttribute('checked',true);
+            update_model(parent.getAttribute('created'), 'edit');
             finishedstate.className = 'icon-checkbox-checked';
             existTaskCheck();
         }
