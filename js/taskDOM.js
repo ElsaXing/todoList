@@ -21,10 +21,10 @@ function addTaskToDOM(task, finished) {
     var el_date = createDOMElem('span',el_taskInfo);
 
 
-    el_taskInfo.className = 'task-info';
-    el_title.className = 'name';
-    el_date.className = 'date';
-    el_moreInfo.className = 'icon icon-moreInfo hide';
+    el_taskInfo.className = 'task-infos task-info';
+    el_title.className = 'task-infos name';
+    el_date.className = 'task-infos date';
+    el_moreInfo.className = 'task-infos icon icon-moreInfo hide';
 
     el_title.textContent = task.title;
     el_date.textContent = task.date;

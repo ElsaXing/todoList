@@ -59,6 +59,23 @@ window.addEventListener('keydown', function () {
 
 });
 
+window.addEventListener('click', function() {
+
+    var tasks = getDOM('class', 'task-infos');
+    for (var i = 0; i < tasks.length; i++) {
+        if (event.target == tasks[i]) {
+            return;
+        }
+    }
+
+    var active = getDOM('class', 'active')[0];
+    if (active) {
+        changeState('brief', active);
+    }
+
+
+});
+
 function getTaskData(event) {
     var el_title = getDOM('id', 'input-name');
 
