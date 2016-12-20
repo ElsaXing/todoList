@@ -38,7 +38,12 @@ function localStorage_check() {
 }
 
 window.addEventListener('keydown', function () {
+
     if (event.keyCode != 46 && event.keyCode != 8) {
+        return;
+    }
+
+    if (document.activeElement != getDOM('tag', 'body')[0]) {
         return;
     }
 
