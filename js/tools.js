@@ -55,49 +55,7 @@ function getToday(type) {
     }
 }
 
-function calenderCheck() {
-    var el_year = getDOM('id', 'input-year');
-    var el_month = getDOM('id', 'input-month');
-    var el_day = getDOM('id', 'input-day');
 
-    el_year.addEventListener('change', function () {
-        if (posIntCheck(el_year.value)) {
-            el_year.value = dateCheck(Number(el_year.value), getToday('year'), 5000);
-        } else {
-            el_year.value = getToday('year');
-        }
-    });
-    el_month.addEventListener('change', function () {
-        if (posIntCheck(el_month.value)) {
-            el_month.value = dateCheck(Number(el_month.value), 1, 12);
-        }
-        else {
-            el_month.value = getToday('month');
-        }
-    });
-    el_day.addEventListener('change', function () {
-        if (posIntCheck(el_day.value)) {
-            el_day.value = dateCheck(Number(el_day.value), 1, 31);
-        } else {
-            el_day.value = getToday('day');
-        }
-    });
-
-    function dateCheck(value, min, max) {
-        if (value < min) {
-            return min;
-        }
-        else if (value > max) {
-            return max;
-        }
-        else if (min <= value && value < 10) {
-            return '0' + value;
-        }
-        else {
-            return value;
-        }
-    }
-}
 
 function posIntCheck(str) {
     if (isNaN(str)) {
