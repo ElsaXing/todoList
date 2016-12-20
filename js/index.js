@@ -23,6 +23,7 @@ function init() {
     calenderCheck();
 
     switchInfo();
+    existTaskCheck();
 
 }
 
