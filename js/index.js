@@ -6,7 +6,9 @@
 function init() {
     localStorage_check();
     calenderCheck();
-    existTaskCheck();
+    if (existTaskCheck()) {
+        switchInfo();
+    }
 }
 
 init();
@@ -38,8 +40,8 @@ function getTaskData(event) {
                 (el_year.value + '-' + el_month.value + '-' + el_day.value) : '';
             var desc = emptyValueCheck(el_desc.value) ? el_desc.value : '';
 
-            var task = tempTask(title, date, desc, generateUUID());
-            viewNewTask(task);
+            var task = tempTask(title, date, desc);
+            addTaskToDOM(task, false);
 
             el_title.value = '';
             el_desc.value = '';
@@ -64,114 +66,14 @@ function switchInfo() {
     }
 }
 
-function setDeadline() {
-    var date = getDOM('class', 'input-date');
-    var divDate = getDOM('class', 'div-date');
-    var icon = getDOM('id', 'icon-calender');
-    icon.className = 'icon-calender hide';
-    divDate[0].className = 'div-date';
-    date[0].value = getToday('year');
-    date[1].value = getToday('month');
-    date[2].value = getToday('day');
-}
-
-function tempTask(title, date, desc, uuid) {
+function tempTask(title, date, desc) {
     return {
         title: title,
         date: date,
         desc: desc,
-        uuid: uuid,
-        createTime: new Date(),
+        created: new Date(),
         finished: false
     }
-}
-
-function viewNewTask(task) {
-    var el_taskList = getDOM('id', 'taskList');
-
-    var el_task = createDOMElem('div', el_taskList);
-    el_task.className = 'task';
-    el_task.setAttribute('UUID',task.uuid);
-    el_task.setAttribute('createTime', task.createTime);
-    el_task.setAttribute('state', 'brief');
-
-    var el_iconCheckbox = fakeCheckbox(el_task);
-
-    var el_taskInfo = taskDiv(el_task);
-    var el_moreInfo = createDOMElem('div', el_taskInfo);
-    var el_title = createDOMElem('span', el_taskInfo);
-    var el_date = createDOMElem('span',el_taskInfo);
-
-
-    el_iconCheckbox.className = 'icon-checkbox';
-    el_taskInfo.className = 'task-info';
-    el_title.className = 'name';
-    el_date.className = 'date';
-    el_moreInfo.className = 'icon icon-moreInfo hide';
-
-    el_title.textContent = task.title;
-    el_date.textContent = task.date;
-
-    if (emptyValueCheck(task.desc)) {
-        var el_desc = createDOMElem('p', el_taskInfo);
-        el_desc.textContent = task.desc;
-        el_desc.className = 'desc hide';
-    }
-
-    lineCheck();
-
-}
-
-function fakeCheckbox (parent) {
-    var el_taskList = getDOM('id', 'taskList');
-    var el_finished_taskList = getDOM('id', 'finished_taskList');
-
-    var finishedstate = createDOMElem('div', parent);
-    parent.setAttribute('checked', false);
-
-    finishedstate.addEventListener('click',function(){
-        if (parent.checked) {
-            el_finished_taskList.removeChild(parent);
-            el_taskList.appendChild(parent);
-            parent.checked = false;
-            finishedstate.className = 'icon-checkbox';
-
-            lineCheck();
-        } else {
-            el_taskList.removeChild(parent);
-            el_finished_taskList.appendChild(parent);
-            parent.checked = true;
-            finishedstate.className = 'icon-checkbox-checked';
-
-            lineCheck();
-        }
-    });
-
-    return finishedstate;
-}
-
-function taskDiv(parent) {
-    var taskInfo = createDOMElem('div', parent);
-    var el_parent = taskInfo.parentElement;
-
-    taskInfo.addEventListener('click', function() {
-        var active = getDOM('class', 'active');
-        if (active[0]) {
-            changeState('brief', active[0]);
-        }
-        changeState('selected', el_parent);
-
-    });
-
-    taskInfo.addEventListener('dblclick', function() {
-        var active = getDOM('class', 'active');
-        if (active[0]) {
-            changeState('brief', active[0]);
-        }
-        changeState('detail', el_parent);
-    });
-
-    return taskInfo;
 }
 
 function changeState(state, task) {
@@ -207,4 +109,19 @@ function changeState(state, task) {
 
             break;
     }
+}
+
+function setDeadline() {
+    var date = getDOM('class', 'input-date');
+    var divDate = getDOM('class', 'div-date');
+    var icon = getDOM('id', 'icon-calender');
+    icon.className = 'icon-calender hide';
+    divDate[0].className = 'div-date';
+    date[0].value = getToday('year');
+    date[1].value = getToday('month');
+    date[2].value = getToday('day');
+}
+
+window.onunload = function () {
+    
 }

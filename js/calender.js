@@ -15,7 +15,6 @@ function calenderCheck() {
         }
 
         specialYear = (el_year.value % 4 == 0);
-        console.log(specialYear);
 
         if (specialYear && el_month.value == '02') {
             el_day.value = februaryCheck(specialYear, el_day.value)

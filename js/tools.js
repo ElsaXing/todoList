@@ -71,15 +71,6 @@ function posIntCheck(str) {
     return true;
 }
 
-function generateUUID() {
-    var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16);
-    });
-    return uuid;
-}
 
 function existTaskCheck() {
     var hr = getDOM('tag', 'hr');
@@ -87,7 +78,9 @@ function existTaskCheck() {
     var unfinished = getDOM('id', 'taskList');
     if (finished.firstElementChild && unfinished.firstElementChild) {
         hr[0].className = '';
+        return false;
     } else {
         hr[0].className = 'hide';
+        return true;
     }
 }
