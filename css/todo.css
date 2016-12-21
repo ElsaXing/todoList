@@ -1,6 +1,6 @@
 /*main structure*/
 .wrap {
-    width: 680px;
+    width: 60%;
     margin: 0 auto;
     font-family: Helvetica;
     font-size: 24px;
@@ -223,7 +223,7 @@ h1 {
 
 @media (max-width: 468px) {
     .wrap {
-        width: 85%;
+        width: 60%;
     }
 
 }
