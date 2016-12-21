@@ -1,8 +1,10 @@
 # todoList
-基于LocalStorage的ToDo List App
+基于LocalStorage的ToDo List App。
+
+移动端暂不适用。
 
 ## Link：
-http://elsaxing.github.io/todoList/
+http://elsaxing.com/todoList/
 
 
 
