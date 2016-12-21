@@ -155,21 +155,18 @@ function changeState(state, task) {
             task.className = 'task';
             desc.className = 'desc hide';
             icon.className = 'task-infos icon hide';
-            console.log('brief');
             break;
         case 'selected':
             task.setAttribute('state', 'selected');
             task.className = 'task active';
             desc.className = 'desc hide';
             icon.className = 'task-infos icon icon-moreInfo';
-            console.log('selected');
             break;
         case 'detail':
             task.setAttribute('state', 'detail');
             task.className = 'task active';
             desc.className = 'desc';
             icon.className = 'task-infos icon icon-delete';
-            console.log('detail');
             break;
         case 'editing':
 
