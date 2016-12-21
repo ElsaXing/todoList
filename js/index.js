@@ -150,13 +150,13 @@ function changeState(state, task) {
             task.state = 'selected';
             task.className = 'task active';
             desc.className = 'desc hide';
-            icon.className = 'icon icon-moreInfo';
+            icon.className = 'task-infos icon icon-moreInfo';
             break;
         case 'detail':
             task.state = 'detail';
             task.className = 'task active';
             desc.className = 'desc';
-            icon.className = 'icon icon-lessInfo';
+            icon.className = 'task-infos icon icon-delete';
             break;
         case 'editing':
 
