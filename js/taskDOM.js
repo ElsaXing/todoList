@@ -16,7 +16,7 @@ function addTaskToDOM(task, finished) {
 
     var el_iconCheckbox = fakeCheckbox(el_task, finished);
     var el_taskInfo = taskBody(el_task);
-    var el_moreInfo = elMoreInfo(el_taskInfo, el_task);
+    var el_moreInfo = elMoreInfo(el_taskInfo);
     var el_title = createDOMElem('span', el_taskInfo);
     var el_date = createDOMElem('span',el_taskInfo);
 
@@ -47,8 +47,11 @@ function taskBody(parent) {
     var el_parent = taskInfo.parentElement;
 
     taskInfo.addEventListener('click', function() {
+        if (event.target != taskInfo) {
+            return;
+        }
         var active = getDOM('class', 'active');
-        if (active[0]) {
+        if (active[0] && (active[0] != el_parent)) {
             changeState('brief', active[0]);
         }
         changeState('selected', el_parent);
@@ -65,21 +68,20 @@ function taskBody(parent) {
     return taskInfo;
 }
 
-function elMoreInfo(parent, task) {
+function elMoreInfo(parent) {
     var el_moreInfo = createDOMElem('div', parent);
-    var active = getDOM('class', 'active');
+
 
     el_moreInfo.addEventListener('click', function() {
-        if (task.state == 'brief') {
-            changeState('selected', task);
-        } else if (task.state == 'selected') {
+        var task = el_moreInfo.parentNode.parentNode;
+        if (task.getAttribute('state') == 'selected') {
             changeState('detail', task);
         } else {
-            update_model(active[0].getAttribute('created'), 'delete');
-            active[0].parentElement.removeChild(active[0]);
+            update_model(task.getAttribute('created'), 'delete');
+            task.parentElement.removeChild(task);
             existTaskCheck();
         }
-    })
+    });
 
     return el_moreInfo;
 }

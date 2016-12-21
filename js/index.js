@@ -59,19 +59,29 @@ window.addEventListener('keydown', function () {
 
 });
 
-window.addEventListener('click', function() {
+window.addEventListener('click', function () {
+    var target = event.target;
 
     var tasks = getDOM('class', 'task-infos');
     for (var i = 0; i < tasks.length; i++) {
-        if (event.target == tasks[i]) {
+        if (target == tasks[i]) {
             return;
         }
     }
 
     var active = getDOM('class', 'active')[0];
-    if (active) {
-        changeState('brief', active);
+    if (!active) {
+        return;
     }
+
+    var icons = active.getElementsByClassName('icon');
+    for (var i = 0; i < icons.length; i++) {
+        if (target == icons[i]) {
+            return;
+        }
+    }
+
+    changeState('brief', active);
 
 
 });
@@ -141,22 +151,25 @@ function changeState(state, task) {
 
     switch (state) {
         case 'brief':
-            task.state = 'brief';
+            task.setAttribute('state', 'brief');
             task.className = 'task';
             desc.className = 'desc hide';
-            icon.className = 'icon hide';
+            icon.className = 'task-infos icon hide';
+            console.log('brief');
             break;
         case 'selected':
-            task.state = 'selected';
+            task.setAttribute('state', 'selected');
             task.className = 'task active';
             desc.className = 'desc hide';
             icon.className = 'task-infos icon icon-moreInfo';
+            console.log('selected');
             break;
         case 'detail':
-            task.state = 'detail';
+            task.setAttribute('state', 'detail');
             task.className = 'task active';
             desc.className = 'desc';
             icon.className = 'task-infos icon icon-delete';
+            console.log('detail');
             break;
         case 'editing':
 
