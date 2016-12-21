@@ -1,6 +1,6 @@
 /*main structure*/
 .wrap {
-    width: 60%;
+    width: 680px;
     margin: 0 auto;
     font-family: Helvetica;
     font-size: 24px;
@@ -16,12 +16,12 @@
 }
 
 .create-task {
-    width: 100%;
+    width: 680px;
     position: relative;
 }
 
 .show-task {
-    width: 100%;
+    width: 680px;
     position: relative;
 }
 
@@ -57,8 +57,7 @@ h1 {
 
 /*input style*/
 .input-name {
-    box-sizing: border-box;
-    width: 100%;
+    width: 608px;
     height: 30px;
     font-size: 24px;
     border-top: none;
@@ -76,9 +75,8 @@ h1 {
 }
 
 .input-desc {
-    box-sizing: border-box;
     margin-top: 30px;
-    width: 100%;
+    width: 656px;
     height: 160px;
     border-radius: 3px;
     border: solid 1px #979797;
@@ -95,7 +93,7 @@ h1 {
     font-style: normal;
     font-stretch: normal;
     color: #9f9f9f;
-    border: 0;
+    border: none;
     outline: none;
 
 }
@@ -219,11 +217,4 @@ h1 {
     background-size: 20px 20px;
     position: absolute;
     right: 0;
-}
-
-@media (max-width: 468px) {
-    .wrap {
-        width: 60%;
-    }
-
 }
