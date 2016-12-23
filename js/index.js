@@ -83,7 +83,31 @@ window.addEventListener('click', function () {
 
     changeState('brief', active);
 
+});
 
+window.addEventListener('touchend', function() {
+    var target = event.target;
+
+    var tasks = getDOM('class', 'task-infos');
+    for (var i = 0; i < tasks.length; i++) {
+        if (target == tasks[i]) {
+            return;
+        }
+    }
+
+    var active = getDOM('class', 'active')[0];
+    if (!active) {
+        return;
+    }
+
+    var icons = active.getElementsByClassName('icon');
+    for (var i = 0; i < icons.length; i++) {
+        if (target == icons[i]) {
+            return;
+        }
+    }
+
+    changeState('brief', active);
 });
 
 function getTaskData(event) {

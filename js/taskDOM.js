@@ -45,12 +45,25 @@ function addTaskToDOM(task, finished) {
 function taskBody(parent) {
     var taskInfo = createDOMElem('div', parent);
     var el_parent = taskInfo.parentElement;
+    var active = getDOM('class', 'active');
 
     taskInfo.addEventListener('click', function() {
-        if (event.target != taskInfo) {
-            return;
+        var taskSpan = taskInfo.getElementsByTagName('span');
+        var eventTarget = [];
+        eventTarget.push(taskInfo);
+        eventTarget.push(taskSpan[0]);
+        eventTarget.push(taskSpan[1]);
+
+        for (var i = 0; i < eventTarget.length; i++) {
+            if (event.target == eventTarget[i]) {
+                break;
+            } else {
+                if (i == eventTarget.length - 1) {
+                    return;
+                }
+            }
         }
-        var active = getDOM('class', 'active');
+
         if (active[0] && (active[0] != el_parent)) {
             changeState('brief', active[0]);
         }
