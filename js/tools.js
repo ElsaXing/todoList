@@ -65,10 +65,8 @@ function posIntCheck(str) {
     if (!Number.isInteger(num)) {
         return false;
     }
-    if (num <= 0) {
-        return false;
-    }
-    return true;
+
+    return !(num <= 0);
 }
 
 

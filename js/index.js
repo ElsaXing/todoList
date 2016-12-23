@@ -117,14 +117,14 @@ function switchInfo() {
     var des = getDOM('id', 'input-desc');
     var more = getDOM('id', 'icon-switch');
     var divDate = getDOM('class', 'div-date');
-    if (more.className == 'icon-addMore') {
-        cal.className = 'icon-calender';
+    if (more.className == 'icons icon-addMore') {
+        cal.className = 'icons icon-calender';
         des.className = 'input-desc';
-        more.className = 'icon-showLess';
+        more.className = 'icons icon-showLess';
     } else {
-        cal.className = 'icon-calender hide';
+        cal.className = 'icons icon-calender hide';
         des.className = 'input-desc hide';
-        more.className = 'icon-addMore';
+        more.className = 'icons icon-addMore';
         divDate[0].className = 'div-date hide';
     }
 }
@@ -154,19 +154,19 @@ function changeState(state, task) {
             task.setAttribute('state', 'brief');
             task.className = 'task';
             desc.className = 'desc hide';
-            icon.className = 'task-infos icon hide';
+            icon.className = 'task-infos icons icon hide';
             break;
         case 'selected':
             task.setAttribute('state', 'selected');
             task.className = 'task active';
             desc.className = 'desc hide';
-            icon.className = 'task-infos icon icon-moreInfo';
+            icon.className = 'task-infos icons icon icon-moreInfo';
             break;
         case 'detail':
             task.setAttribute('state', 'detail');
             task.className = 'task active';
             desc.className = 'desc';
-            icon.className = 'task-infos icon icon-delete';
+            icon.className = 'task-infos icons icon icon-delete';
             break;
         case 'editing':
 
@@ -178,7 +178,7 @@ function setDeadline() {
     var date = getDOM('class', 'input-date');
     var divDate = getDOM('class', 'div-date');
     var icon = getDOM('id', 'icon-calender');
-    icon.className = 'icon-calender hide';
+    icon.className = 'icons icon-calender hide';
     divDate[0].className = 'div-date';
     date[0].value = getToday('year');
     date[1].value = getToday('month');

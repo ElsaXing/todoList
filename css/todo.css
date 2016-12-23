@@ -1,5 +1,6 @@
 /*main structure*/
 .wrap {
+    box-sizing: border-box;
     width: 680px;
     margin: 0 auto;
     font-family: Helvetica;
@@ -16,12 +17,10 @@
 }
 
 .create-task {
-    width: 680px;
     position: relative;
 }
 
 .show-task {
-    width: 680px;
     position: relative;
 }
 
@@ -57,8 +56,9 @@ h1 {
 
 /*input style*/
 .input-name {
-    width: 608px;
-    height: 30px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 33px;
     font-size: 24px;
     border-top: none;
     border-left: none;
@@ -75,8 +75,9 @@ h1 {
 }
 
 .input-desc {
+    box-sizing: border-box;
+    width: 100%;
     margin-top: 30px;
-    width: 656px;
     height: 160px;
     border-radius: 3px;
     border: solid 1px #979797;
@@ -86,7 +87,7 @@ h1 {
 }
 
 .input-date {
-    height: 31px;
+    height: 30px;
     font-family: Helvetica;
     font-size: 18px;
     font-weight: normal;
@@ -149,72 +150,158 @@ h1 {
 }
 
 /*icon style*/
-.icon-add {
-    background: url("../src/add.svg") no-repeat center;
+.icons {
     width: 32px;
     height: 32px;
     background-size: 20px 20px;
     position: absolute;
+}
+
+.icon-add {
+    background: url("../src/add.svg") no-repeat center;
 
 }
 
 .icon-addMore {
     background: url("../src/addMore.svg") no-repeat center;
-    width: 32px;
-    height: 32px;
-    background-size: 20px 20px;
-    position: absolute;
     right: 0;
 }
 
 .icon-checkbox {
     background: url("../src/checkBox.svg") no-repeat center;
-    width: 32px;
     height: 36px;
-    background-size: 20px 20px;
-    position: absolute;
 }
 
 .icon-checkbox-checked {
     background: url("../src/checkBoxChecked.svg") no-repeat center;
-    width: 32px;
     height: 36px;
-    background-size: 20px 20px;
-    position: absolute;
 }
 
 .icon-calender {
     background: url("../src/calender.svg") no-repeat center;
-    width: 32px;
-    height: 32px;
-    background-size: 20px 20px;
-    position: absolute;
     right: 32px;
 }
 
 .icon-showLess {
     background: url("../src/showLess.svg") no-repeat center;
-    width: 32px;
-    height: 32px;
-    background-size: 20px 20px;
-    position: absolute;
     right: 0;
 }
 
 .icon-moreInfo {
     background: url("../src/moreInfo.svg") no-repeat center;
-    width: 32px;
-    height: 32px;
-    background-size: 20px 20px;
-    position: absolute;
     right: 0;
 }
 
 .icon-delete {
     background: url("../src/delete.svg") no-repeat center;
-    width: 32px;
-    height: 32px;
-    background-size: 20px 20px;
-    position: absolute;
     right: 0;
+}
+
+@media (max-width: 460px) {
+    .wrap {
+        width: 60%;
+        font-size: 16px;
+    }
+
+    .content {
+        padding-top: 40px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .icons {
+        width: 16px;
+        height: 16px;
+        background-size: 14px 14px;
+    }
+
+    .icon-checkbox {
+        height: 18px;
+    }
+
+    .icon-checkbox-checked {
+        height: 18px;
+    }
+
+
+    .icon-calender {
+        right: 16px;
+    }
+
+
+    .taskList {
+        margin: 40px 0 0;
+    }
+
+    .finished_taskList {
+        margin: 20px 0 20px 0;
+    }
+
+
+    .div-date {
+        font-size: 12px;
+        left: 0;
+        top: 120px;
+        position: absolute;
+
+    }
+
+    /*input style*/
+    .input-name {
+        height: 16px;
+        font-size: 14px;
+        padding-left: 20px;
+        padding-right: 16px;
+        padding-bottom: 3px;
+    }
+
+    .input-desc {
+        margin-top: 16px;
+        height: 80px;
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .input-date {
+        height: 14px;
+        font-size: 12px;
+    }
+
+    #input-year {
+        width: 26px;
+    }
+
+    #input-month {
+        width: 15px;
+    }
+
+    #input-day {
+        width: 15px;
+    }
+
+    /*task style*/
+    .task {
+        margin-bottom: 10px;
+    }
+
+    .task-info {
+        margin-left: 21px;
+    }
+
+    .task-info .date {
+        padding-left: 7px;
+        font-size: 12px;
+    }
+
+    .task-info .desc {
+        font-size: 16px;
+    }
+
+    .active .task-info {
+        margin-left: 21px;
+    }
+
+
 }
