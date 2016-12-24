@@ -64,8 +64,13 @@ function taskBody(parent) {
             }
         }
 
+        if (active[0] && (active[0] != el_parent)) {
+            changeState('brief', active[0]);
+        }
         changeState('detail', el_parent);
     });
+
+
 
     return taskInfo;
 }
