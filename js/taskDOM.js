@@ -64,17 +64,6 @@ function taskBody(parent) {
             }
         }
 
-        if (active[0] && (active[0] != el_parent)) {
-            changeState('brief', active[0]);
-        }
-        changeState('selected', el_parent);
-    });
-
-    taskInfo.addEventListener('dblclick', function() {
-        var active = getDOM('class', 'active');
-        if (active[0]) {
-            changeState('brief', active[0]);
-        }
         changeState('detail', el_parent);
     });
 
