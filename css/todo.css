@@ -118,7 +118,6 @@ h1 {
 /*task style*/
 .task {
     margin-bottom: 20px;
-    user-select: none;
 }
 
 .task-info {
